@@ -15,9 +15,9 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     return distance
 
 def find_closest_points(array1, array2):
-
+    
     closest_points = []
-    for lat1, lon1 in array1:
+    for index1, (lat1, lon1) in enumerate(array1):
         min_distance = float('inf')
         closest_point = None
         for lat2, lon2 in array2:
@@ -25,20 +25,22 @@ def find_closest_points(array1, array2):
             if distance < min_distance:
                 min_distance = distance
                 closest_point = (lat2, lon2)
-        closest_points.append((lat1, lon1, closest_point, min_distance))
+        closest_points.append((f"Location {chr(65 + index1)}", (lat1, lon1), closest_point, min_distance))
     return closest_points
 
 def input_array(prompt):
-
+    
     print(prompt)
     array = []
+    index = 0
     while True:
-        point = input("Enter a GPS point as 'latitude,longitude' (or type 'done' to finish): ")
+        point = input(f"Enter a GPS point as 'latitude,longitude' for Location {chr(65 + index)} (or type 'done' to finish): ")
         if point.lower() == 'done':
             break
         try:
             lat, lon = map(float, point.split(","))
             array.append((lat, lon))
+            index += 1
         except ValueError:
             print("Invalid input. Please enter in the format 'latitude,longitude'.")
     return array
@@ -46,11 +48,9 @@ def input_array(prompt):
 if __name__ == "__main__":
     print("Welcome to the Geo Location Matching Tool!")
     
-    # First array of points
-    array1 = input_array("Input the first array of GPS points:")
+    array1 = input_array("Input the first array of GPS points (points to match):")
     
-    # Second array of points
-    array2 = input_array("Input the second array of GPS points:")
+    array2 = input_array("Input the second array of GPS points (reference points):")
     
     if not array1 or not array2:
         print("Both arrays must have at least one point. Exiting.")
@@ -60,7 +60,5 @@ if __name__ == "__main__":
         
         print("\nMatching Results:")
         for result in results:
-            lat1, lon1 = result[0], result[1]
-            closest_lat, closest_lon = result[2]
-            distance = result[3]
-            print(f"Point ({lat1}, {lon1}) is closest to ({closest_lat}, {closest_lon}) with a distance of {distance:.2f} km.")
+            label, (lat1, lon1), (closest_lat, closest_lon), distance = result
+            print(f"{label} ({lat1}, {lon1}) is closest to ({closest_lat}, {closest_lon}) with a distance of {distance:.2f} km.")
