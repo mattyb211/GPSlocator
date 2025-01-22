@@ -46,10 +46,10 @@ def input_array(prompt):
 if __name__ == "__main__":
     print("Welcome to the Geo Location Matching Tool!")
     
-    # Get the first array of points
+    # First array of points
     array1 = input_array("Input the first array of GPS points:")
     
-    # Get the second array of points
+    # Second array of points
     array2 = input_array("Input the second array of GPS points:")
     
     if not array1 or not array2:
