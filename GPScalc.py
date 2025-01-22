@@ -15,7 +15,6 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     return distance
 
 def find_closest_points(array1, array2):
-    
     closest_points = []
     for index1, (lat1, lon1) in enumerate(array1):
         min_distance = float('inf')
@@ -28,29 +27,26 @@ def find_closest_points(array1, array2):
         closest_points.append((f"Location {chr(65 + index1)}", (lat1, lon1), closest_point, min_distance))
     return closest_points
 
-def input_array(prompt):
+def input_array(array_name):
     
-    print(prompt)
     array = []
-    index = 0
-    while True:
-        point = input(f"Enter a GPS point as 'latitude,longitude' for Location {chr(65 + index)} (or type 'done' to finish): ")
-        if point.lower() == 'done':
-            break
-        try:
-            lat, lon = map(float, point.split(","))
-            array.append((lat, lon))
-            index += 1
-        except ValueError:
-            print("Invalid input. Please enter in the format 'latitude,longitude'.")
+    num_points = int(input(f"How many points will you enter for {array_name}? "))
+    for index in range(num_points):
+        while True:
+            point = input(f"Enter GPS point {index + 1} as 'latitude,longitude' for Location {chr(65 + index)}: ")
+            try:
+                lat, lon = map(float, point.split(","))
+                array.append((lat, lon))
+                break
+            except ValueError:
+                print("Invalid input. Please enter in the format 'latitude,longitude'.")
     return array
 
 if __name__ == "__main__":
     print("Welcome to the Geo Location Matching Tool!")
-    
-    array1 = input_array("Input the first array of GPS points (points to match):")
-    
-    array2 = input_array("Input the second array of GPS points (reference points):")
+
+    array1 = input_array("the first array (points to match)")
+    array2 = input_array("the second array (reference points)")
     
     if not array1 or not array2:
         print("Both arrays must have at least one point. Exiting.")
