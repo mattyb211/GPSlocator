@@ -24,3 +24,5 @@ The **GeoLocation Matcher** is a Python tool that finds the closest point in one
   - Location B: `37.7749,-122.4194` (San Francisco)
 
 **Output:**
+ - Location A (42.3601, -71.0589) is closest to (34.0522, -118.2437) with a distance of 4163.00 km. 
+ - Location B (40.7128, -74.0060) is closest to (34.0522, -118.2437) with a distance of 3936.00 km.
