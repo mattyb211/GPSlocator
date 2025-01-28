@@ -59,7 +59,7 @@ def input_array(array_name, format_choice):
     
     return array
 
-if __name__ == "__main__":
+def run_program():
     print("Welcome to the Geo Location Matching Tool!")
     print("Please select the coordinate format you will be using:")
     print("  1) Decimal (e.g., 42.3601, -71.0589)")
@@ -86,3 +86,6 @@ if __name__ == "__main__":
                 f"{label} ({lat1:.6f}, {lon1:.6f}) is closest to "
                 f"({closest_lat:.6f}, {closest_lon:.6f}) with a distance of {distance:.2f} km."
             )
+
+if __name__ == "__main__":
+     run_program()

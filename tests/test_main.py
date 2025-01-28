@@ -3,7 +3,8 @@ from unittest.mock import patch
 from GPScalc import (
     haversine_distance,
     find_closest_points,
-    input_array
+    input_array,
+    run_program 
 )
 
 # ChatGPT-aided test cases
@@ -70,7 +71,31 @@ class TestInputArray(unittest.TestCase):
         lat, lon = array[0]
         self.assertAlmostEqual(lat, 40.7484, delta=0.001)
         self.assertAlmostEqual(lon, 73.9856, delta=0.001)
+class TestRunProgram(unittest.TestCase):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[
+        # format_choice
+        "1",
+        # number of points for array1
+        "1",
+        # lat, lon for array1 point #1
+        "42.3601, -71.0589",
+        # number of points for array2
+        "1",
+        # lat, lon for array2 point #1
+        "34.0522, -118.2437",
+    ])
+    def test_run_program_decimal(self, mock_input, mock_print):
+        """
+        Mocks all prompts so run_program() is fully executed.
+        Should cover lines that were previously missed.
+        """
+        run_program()
 
+        # Optionally, check printed output:
+       # output_lines = [call.args[0] for call in mock_print.call_args_list]
+       # self.assertIn("Welcome to the Geo Location Matching Tool!", output_lines)
+       # self.assertIn("Matching Results:", output_lines)    
 
 if __name__ == '__main__':
     unittest.main()
